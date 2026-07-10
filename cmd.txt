@@ -1,0 +1,22 @@
+cd msbasic
+
+./make.sh
+hexdump -C tmp/eater.bin
+
+Start MSBASIC:
+8000 R
+
+CHAR OUT:
+FEF9
+
+
+0000: A9 00 AA 20 F9 FE E8 8A 4C 02 00
+
+10 PRINT "Welcome to the MSBASIC Calculator!"
+20 PRINT "Enter the first number: "
+30 INPUT A
+40 PRINT "Enter the second number: "
+50 INPUT B
+60 LET C = A + B
+70 PRINT "The sum of "; A; " and "; B; " is "; C
+80 END
