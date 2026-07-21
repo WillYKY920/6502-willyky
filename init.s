@@ -124,7 +124,6 @@ COLD_START:
         sta     Z18
   .endif
   .ifdef EATER
-        jsr     LCDINIT
   .endif
 .endif
 

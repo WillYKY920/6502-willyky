@@ -207,6 +207,12 @@ MULT_RES:
 	.res 3   ; Reserve 3 bytes for the multiplication result
 DIV_REM:
 	.res 1   ; Reserve 1 byte for the division remainder
+VFD_TMP:    
+	.res 1      ; Temporary byte for serial shifting
+VFD_ROW:    
+	.res 1      ; Tracks current print row (0 or 1)
+VFD_COL:    
+	.res 1      ; Tracks current print column (0 to 15)
 .endif
 CHRGET:
 TXTPTR = <(GENERIC_TXTPTR-GENERIC_CHRGET + CHRGET)

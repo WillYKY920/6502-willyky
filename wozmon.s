@@ -16,7 +16,7 @@ RESET:
                 LDX     #$FF
                 TXS
                 CLD                    ; Clear decimal arithmetic mode.
-                JSR     LCDINIT
+                JSR     VFD_INIT
                 CLI
 
 INIT_UART:
