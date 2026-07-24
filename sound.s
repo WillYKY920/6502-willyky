@@ -31,6 +31,9 @@ BEEP: ; BEEP(period, duration)
                 JMP     DURATION ; get second parameter (duration in ms)
 
 SYNTH: ; SYNTH(V1_HalfPeriod, V2_HalfPeriod, Duration)
+                LDA     #$40    ; Bit 7 is 0 (Disable mode), Bit 6 is 1 (Timer 1)
+                STA     IER     ; Turn off Timer 1 interrupts for 2-Voice mode
+
                 JSR     FRMEVL  ; Parse first parameter (Voice 1)
                 JSR     MKINT
                 

@@ -2,7 +2,7 @@
 .ifdef EATER
 
 ; ==============================================================================
-; VFD Display Driver for CIG25-1605N (65C02 MSBASIC / Ben Eater Computer)
+; VFD Display Driver for CIG25-1605N 
 ;
 ; Pin Assignments (VIA Port A):
 ;   PA0 -> RST  (Active Low Hardware Reset)

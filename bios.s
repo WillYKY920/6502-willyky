@@ -72,14 +72,14 @@ IRQ_HANDLER:
                 ; 1. Check if a Timer 1 interrupt is actually pending
                 LDA     IFR
                 AND     #$40                ; Check Bit 6 (Timer 1 Flag)
-                BEQ     @skip_sound         ; If T1 didn't cause this, skip sound reload
+                BEQ     @skip_sound         ; If T1 didn't cause this, skip
                 
                 ; 2. Check if Timer 1 interrupts are currently enabled
                 LDA     IER
-                AND     #$40                ; Is Bit 6 enabled in the master register?
-                BEQ     @skip_sound         ; If disabled, skip sound reload entirely!
+                AND     #$40                ; Is Bit 6 enabled?
+                BEQ     @clear_t1_and_skip  ; If disabled, clear flag and skip!
 
-                ; 3. Handle Legacy Duty-Cycle Audio (For old BEEP/PULSE commands)
+                ; 3. Handle Duty-Cycle Audio
                 LDA     PORTB
                 BMI     @duty_high
 
@@ -87,18 +87,21 @@ IRQ_HANDLER:
                 LDA     DLC
                 STA     T1LL
                 LDA     DLC+1
-                STA     T1LH                ; Writing to T1LH clears the IFR T1 flag
-                JMP     @skip_sound    
+                STA     T1LH                ; Writing T1LH clears T1 IFR flag
+                JMP     @irq_exit    
 
-@duty_high:      ; Load High Phase Duration 
+@duty_high:     
                 LDA     DHC
                 STA     T1LL
                 LDA     DHC+1
-                STA     T1LH  
+                STA     T1LH                ; Writing T1LH clears T1 IFR flag
+                JMP     @irq_exit
+
+@clear_t1_and_skip:
+                LDA     T1CL                ; <--- READ T1CL TO CLEAR INTERRUPT FLAG!
 
 @skip_sound:
                 ; --- FUTURE EXPANSION ---
-                ; (This is where you can safely add Keyboard or Serial IRQ checks later!)
 
 @irq_exit: 
                 PLX

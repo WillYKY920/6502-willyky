@@ -15,9 +15,13 @@ IN    = $0200                          ; Input buffer
 RESET:
                 LDX     #$FF
                 TXS
-                CLD                    ; Clear decimal arithmetic mode.
+                CLD                    ; Clear decimal mode
+                
+                LDA     #$7F           ; Bit 7 = 0 (Disable), Bits 0-6 = 1 (All sources)
+                STA     $600E          ; Write to IER ($600E)
+                
                 JSR     VFD_INIT
-                CLI
+                CLI                    ; Safe to enable CPU interrupts now
 
 INIT_UART:
                 LDA     #$1F           ; 8-N-1, 19200 baud.

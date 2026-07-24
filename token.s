@@ -82,6 +82,7 @@
 		keyword_rts "LCDCMD", LCDCMD
 		keyword_rts "LCDPRINT", LCDPRINT
         keyword_rts "BEEP", BEEP
+		keyword_rts "SYNTH", SYNTH
 		keyword_rts "VFDPRINT", VFDPRINT
 .endif
 
